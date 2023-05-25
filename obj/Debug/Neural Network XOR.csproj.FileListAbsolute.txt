@@ -1,0 +1,13 @@
+C:\Users\BlackDheart\source\repos\Neural Network XOR\bin\Debug\Neural Network XOR.exe.config
+C:\Users\BlackDheart\source\repos\Neural Network XOR\bin\Debug\Neural Network XOR.exe
+C:\Users\BlackDheart\source\repos\Neural Network XOR\bin\Debug\Neural Network XOR.pdb
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural Network XOR.csproj.AssemblyReference.cache
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural_Network_XOR.Properties.Resources.resources
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural Network XOR.csproj.GenerateResource.cache
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural Network XOR.csproj.CoreCompileInputs.cache
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural Network XOR.exe
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural Network XOR.pdb
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural_Network_XOR.Main.resources
+C:\Users\BlackDheart\source\repos\Neural Network XOR\bin\Debug\Newtonsoft.Json.dll
+C:\Users\BlackDheart\source\repos\Neural Network XOR\bin\Debug\Newtonsoft.Json.xml
+C:\Users\BlackDheart\source\repos\Neural Network XOR\obj\Debug\Neural Network XOR.csproj.CopyComplete
