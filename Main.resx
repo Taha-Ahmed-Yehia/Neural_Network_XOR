@@ -138,13 +138,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Train_ProgressBar.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="Train_Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>13, 13</value>
+    <value>12, 12</value>
   </data>
   <data name="Train_Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 50</value>
+    <value>100, 50</value>
   </data>
   <data name="Train_Button.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -162,13 +162,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Train_Button.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="ResetNN_Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>643, 13</value>
+    <value>638, 12</value>
   </data>
   <data name="ResetNN_Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>145, 50</value>
+    <value>150, 50</value>
   </data>
   <data name="ResetNN_Button.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -186,13 +186,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;ResetNN_Button.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="Save_Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>132, 13</value>
+    <value>426, 12</value>
   </data>
   <data name="Save_Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>113, 50</value>
+    <value>100, 50</value>
   </data>
   <data name="Save_Button.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -210,13 +210,13 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Save_Button.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="Load_Button.Location" type="System.Drawing.Point, System.Drawing">
-    <value>251, 13</value>
+    <value>532, 12</value>
   </data>
   <data name="Load_Button.Size" type="System.Drawing.Size, System.Drawing">
-    <value>111, 50</value>
+    <value>100, 50</value>
   </data>
   <data name="Load_Button.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -234,16 +234,16 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Load_Button.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="Result_TextBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>1, 81</value>
+    <value>12, 68</value>
   </data>
   <data name="Result_TextBox.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="Result_TextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>796, 327</value>
+    <value>776, 340</value>
   </data>
   <data name="Result_TextBox.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
@@ -258,6 +258,30 @@
     <value>$this</value>
   </data>
   <data name="&gt;&gt;Result_TextBox.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="ShowNNResult_Button.Location" type="System.Drawing.Point, System.Drawing">
+    <value>118, 12</value>
+  </data>
+  <data name="ShowNNResult_Button.Size" type="System.Drawing.Size, System.Drawing">
+    <value>100, 50</value>
+  </data>
+  <data name="ShowNNResult_Button.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="ShowNNResult_Button.Text" xml:space="preserve">
+    <value>Output Result</value>
+  </data>
+  <data name="&gt;&gt;ShowNNResult_Button.Name" xml:space="preserve">
+    <value>ShowNNResult_Button</value>
+  </data>
+  <data name="&gt;&gt;ShowNNResult_Button.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;ShowNNResult_Button.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;ShowNNResult_Button.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

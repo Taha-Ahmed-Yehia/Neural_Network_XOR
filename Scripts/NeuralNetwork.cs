@@ -8,7 +8,14 @@ namespace Neural_Network_XOR.Scripts
         public int[] layer;
         public Layer[] layers;
         const float LearningRate = 0.001f;
-
+        /// <summary>
+        /// Constarctor 
+        /// </summary>
+        /// <param name="layer">
+        /// How many layers the network will have.
+        /// <br>First element in the array is for the inputs, and the last element is for the outputs.</br>
+        /// <br>The elements between first and last are for heddin layers.</br>
+        /// </param>
         public NeuralNetwork(int[] layer)
         {
             int layerLength = layer.Length;
@@ -27,17 +34,33 @@ namespace Neural_Network_XOR.Scripts
             }
         }
 
+        #region Json Convertions
+        /// <summary>
+        /// Convert Neural Network data to JSON Format and return it as String.
+        /// </summary>
+        /// <returns>JSON data as String.</returns>
         public string toJson()
         {
             var jsonData = JsonConvert.SerializeObject(this);
             return jsonData;
         }
+        /// <summary>
+        /// Convert JSON data to NeuralNetwork.
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns>NeuralNetwork from JSON Format.</returns>
         public static NeuralNetwork fromJson(string data)
         {
             var jsonData = JsonConvert.DeserializeObject<NeuralNetwork>(data);
             return jsonData;
         }
+        #endregion
 
+        /// <summary>
+        /// Inject neural network with inputs and get the outputs from it.
+        /// </summary>
+        /// <param name="inputs"></param>
+        /// <returns>outputs of neural network.</returns>
         public float[] FeedForward(float[] inputs)
         {
             layers[0].FeedForward(inputs);
@@ -48,7 +71,10 @@ namespace Neural_Network_XOR.Scripts
             }
             return layers[layersLength - 1].outputs;
         }
-
+        /// <summary>
+        /// Perform backpropagation with expected values to calculate erros and train network.
+        /// </summary>
+        /// <param name="expected">The correct values the network should output.</param>
         public void BackProb(float[] expected)
         {
             int layersLength = layers.Length - 1;
@@ -59,7 +85,7 @@ namespace Neural_Network_XOR.Scripts
                 }
                 else
                 {
-                    layers[i].BackPropHiden(layers[i + 1].gamma, layers[i + 1].weights);
+                    layers[i].BackPropHidden(layers[i + 1].gamma, layers[i + 1].weights);
                 }
             }
 
@@ -68,132 +94,14 @@ namespace Neural_Network_XOR.Scripts
                 layers[i].UpdateWeights(LearningRate);
             }
         }
-
-
+        /// <summary>
+        /// Reset neural network by initilize new weights.
+        /// </summary>
         internal void Reset()
         {
             for (int i = 0; i < layers.Length; i++)
             {
                 layers[i].InitilizeWeights();
-            }
-        }
-
-        public class Layer
-        {
-            public int numberOfInputs;
-            public int numberOfOutputs;
-
-            public float[] inputs;
-
-            public float[,] weights;
-            public float[,] weightsDelta;
-
-            public float[] outputs;
-            public float[] gamma;
-            public float[] error;
-
-            public static Random random = new Random();
-
-            public Layer(int numberOfInputs, int numberOfOutputs)
-            {
-                this.numberOfInputs = numberOfInputs;
-                this.numberOfOutputs = numberOfOutputs;
-
-                inputs = new float[numberOfInputs];
-
-                weights = new float[numberOfOutputs, numberOfInputs];
-                weightsDelta = new float[numberOfOutputs, numberOfInputs];
-
-                outputs = new float[numberOfOutputs];
-                gamma = new float[numberOfOutputs];
-                error = new float[numberOfOutputs];
-
-                InitilizeWeights();
-            }
-
-            public void InitilizeWeights()
-            {
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    for (int j = 0; j < numberOfInputs; j++)
-                    {
-                        weights[i, j] = (float)random.NextDouble() - 0.5f;
-                    }
-                }
-            }
-
-            public float[] FeedForward(float[] inputs)
-            {
-                this.inputs = inputs;
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    outputs[i] = 0;
-                    for (int j = 0; j < numberOfInputs; j++)
-                    {
-                        outputs[i] += inputs[j] * weights[i, j];
-                    }
-                    outputs[i] = (float)Math.Tanh(outputs[i]);
-                }
-                return outputs;
-            }
-
-            public void UpdateWeights(float LearningRate)
-            {
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    for (int j = 0; j < numberOfInputs; j++)
-                    {
-                        weights[i, j] -= weightsDelta[i, j] * LearningRate;
-                    }
-                }
-            }
-
-            public float TanhDer(float value)
-            {
-                return 1f - (value * value);
-            }
-
-            public void BackPropOutput(float[] expected)
-            {
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    error[i] = outputs[i] - expected[i];
-                }
-
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    gamma[i] = error[i] * TanhDer(outputs[i]);
-                }
-
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    for (int j = 0; j < numberOfInputs; j++)
-                    {
-                        weightsDelta[i, j] = gamma[i] * inputs[j];
-                    }
-                }
-
-            }
-
-            public void BackPropHiden(float[] gammaForward, float[,] weightsForward)
-            {
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    gamma[i] = 0;
-                    for (int j = 0; j < gammaForward.Length; j++)
-                    {
-                        gamma[i] += gammaForward[j] * weightsForward[j, i];
-                    }
-                    gamma[i] *= TanhDer(outputs[i]);
-                }
-
-                for (int i = 0; i < numberOfOutputs; i++)
-                {
-                    for (int j = 0; j < numberOfInputs; j++)
-                    {
-                        weightsDelta[i, j] = gamma[i] * inputs[j];
-                    }
-                }
             }
         }
     }

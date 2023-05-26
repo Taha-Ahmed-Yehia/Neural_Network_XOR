@@ -11,8 +11,9 @@ namespace Neural_Network_XOR
         NeuralNetwork neuralNetwork = new NeuralNetwork(new int[] { 3, 25, 25, 1 });
         const int trainIterationCount = 1000;
 
-        private Thread mainThread;
+        private Thread trainingThread;
         private bool isTraining = false;
+
         public Main()
         {
             InitializeComponent();
@@ -23,6 +24,7 @@ namespace Neural_Network_XOR
             Train_ProgressBar.Maximum = trainIterationCount;
             Train_ProgressBar.Step = 1;
 
+            // Get current build path and create new custom folder to save neural data
             string path = AppDomain.CurrentDomain.BaseDirectory + "Neural Network Models\\";
             if (!Directory.Exists(path))
             {
@@ -30,6 +32,7 @@ namespace Neural_Network_XOR
             }
         }
 
+        // Train Neural Network and show results on result screen
         private void Train()
         {
             MethodInvoker prograss = new MethodInvoker(() => Train_ProgressBar.Value++);
@@ -63,48 +66,55 @@ namespace Neural_Network_XOR
             }
 
             isTraining = false;
-            Train_ProgressBar.Invoke(new MethodInvoker(() => {
-                Train_ProgressBar.Hide();
-            }));
-            Train_Button.Invoke(new MethodInvoker(() => {
-                Train_Button.Text = "Train";
-            }));
 
+            Train_ProgressBar.Invoke(new MethodInvoker(() => Train_ProgressBar.Hide()));
 
-            Result_TextBox.Invoke(new MethodInvoker(()=> {
-                ShowMessage(GetNNResult());
-            }));
+            Train_Button.Invoke(new MethodInvoker(() => Train_Button.Text = "Train"));
+
+            Result_TextBox.Invoke(new MethodInvoker(()=> ShowMessage(GetNNResult())));
         }
 
+        // Show Neural Network Output results on result screen
         private string GetNNResult()
         {
+
             var outputs = "Neural Outputs:";
             float output = neuralNetwork.FeedForward(new float[] { 0f, 0f, 0f })[0];
-            outputs += $"\r\nInputs: [0,0,0], Outputs: {Math.Round(output)}, Expeacted Output: 0, Linear Output: {output}";
+            outputs += $"\r\nInputs: [0, 0, 0] - Expeacted Output: 0 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 0f, 0f, 1f })[0];
-            outputs += $"\r\nInputs: [0,0,1], Outputs: {Math.Round(output)}, Expeacted output: 1, Linear Output: {output}";
+            outputs += $"\r\nInputs: [0, 0, 1] - Expeacted output: 1 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 0f, 1f, 0f })[0];
-            outputs += $"\r\nInputs: [0,1,0], Outputs: {Math.Round(output)}, Expeacted output: 1, Linear Output: {output}";
+            outputs += $"\r\nInputs: [0, 1, 0] - Expeacted output: 1 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 0f, 1f, 1f })[0];
-            outputs += $"\r\nInputs: [0,1,1], Outputs: {Math.Round(output)}, Expeacted Output: 0, Linear Output: {output}";
+            outputs += $"\r\nInputs: [0, 1, 1] - Expeacted Output: 0 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 1f, 0f, 0f })[0];
-            outputs += $"\r\nInputs: [1,0,0], Outputs: {Math.Round(output)}, Expeacted output: 1, Linear Output: {output}";
+            outputs += $"\r\nInputs: [1, 0, 0] - Expeacted output: 1 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 1f, 0f, 1f })[0];
-            outputs += $"\r\nInputs: [1,0,1], Outputs: {Math.Round(output)}, Expeacted Output: 0, Linear Output: {output}";
+            outputs += $"\r\nInputs: [1, 0, 1] - Expeacted Output: 0 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 1f, 1f, 0f })[0];
-            outputs += $"\r\nInputs: [1,1,0], Outputs: {Math.Round(output)}, Expeacted Output: 0, Linear Output: {output}";
+            outputs += $"\r\nInputs: [1, 1, 0] - Expeacted Output: 0 - Outputs: {Math.Round(output)} - Linear Output: {output}";
             output = neuralNetwork.FeedForward(new float[] { 1f, 1f, 1f })[0];
-            outputs += $"\r\nInputs: [1,1,1], Outputs: {Math.Round(output)}, Expeacted output: 1, Linear Output: {output}";
+            outputs += $"\r\nInputs: [1, 1, 1] - Expeacted output: 1 - Outputs: {Math.Round(output)} - Linear Output: {output}";
 
             return outputs;
         }
 
+        //Show any message on result screen
+        private void ShowMessage(String message)
+        {
+            Result_TextBox.Text += $"\r\n{message}\r\n";
+            Result_TextBox.SelectionStart = Result_TextBox.Text.Length;
+            Result_TextBox.ScrollToCaret();
+        }
+
+
         #region Button Events
         private void Train_Button_Click(object sender, EventArgs e)
         {
-            if (!isTraining) { 
-                mainThread = new Thread(new ThreadStart(Train));
-                mainThread.Start();
+            if (!isTraining) {
+                ShowMessage("Training....");
+                trainingThread = new Thread(new ThreadStart(Train));
+                trainingThread.Start();
                 Train_ProgressBar.Show();
                 Train_ProgressBar.Value = 0;
                 Train_Button.Text = "Cancel";
@@ -112,7 +122,8 @@ namespace Neural_Network_XOR
             }
             else
             {
-                mainThread.Abort();
+                ShowMessage("Training has been canceled.");
+                trainingThread.Abort();
                 Train_ProgressBar.Hide();
                 Train_Button.Text = "Train";
                 isTraining = false;
@@ -121,56 +132,62 @@ namespace Neural_Network_XOR
 
         private void Save_Button_Click(object sender, EventArgs e)
         {
-            string path = AppDomain.CurrentDomain.BaseDirectory + "Neural Network Models\\";
+            // Get current build path and create new custom folder
+            var path = AppDomain.CurrentDomain.BaseDirectory + "Neural Network Models\\";
             if (!Directory.Exists(path)) {
                 Directory.CreateDirectory(path);
             }
+            // Create unique save file name
             DateTime date = DateTime.Now;
             var fileId = $"{ date.Day }{ date.Month }{ date.Year }{ date.Hour }{ date.Minute }{ date.Second }";
-            string fileName = $@"NN Model_{ fileId }.txt";
-            File.WriteAllText(path + fileName, neuralNetwork.toJson());
-            ShowMessage("File Saved at: " + path + " with name: " + fileName);
+            var fileName = $@"NN Model_{ fileId }.txt";
+            // Convert neural network to JSON format and save it. 
+            var data = neuralNetwork.toJson();
+            File.WriteAllText(path + fileName, data);
+            ShowMessage($"File Saved at: [{ path }] With name: [{ fileName }]");
         }
 
         private void Load_Button_Click(object sender, EventArgs e)
         {
-            Stream st;
             OpenFileDialog ofd = new OpenFileDialog();
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-                string initialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Neural Network Models\\";
+
+                // Set intial directory to default path
+                string initialDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace('/', '\\') + "Neural Network Models\\";
                 ofd.InitialDirectory = initialDirectory;
-                st = ofd.OpenFile();
-                if (st != null)
+                if (ofd.OpenFile() != null)
                 {
-                    string file = ofd.FileName;
                     try
                     {
+                        string file = ofd.FileName;
                         string str = File.ReadAllText(file);
+
                         neuralNetwork = NeuralNetwork.fromJson(str);
+
                         ShowMessage("Loaded Neural Network Model.");
 
                         ShowMessage(GetNNResult());
                     }
                     catch (Exception ex)
                     {
-                        //SHESH don't say anything, and yes i know :)
+                        // SHESH don't say anything, and yes i know :)
                         MessageBox.Show("Unknown Error!");
                     }
                 }
             }
         }
-        private void ShowMessage(String message)
-        {
-            Result_TextBox.Text += $"\r\n{message}\r\n";
-            Result_TextBox.SelectionStart = Result_TextBox.Text.Length;
-            Result_TextBox.ScrollToCaret();
-        }
+
         private void ResetNN_Button_Click(object sender, EventArgs e)
         {
             neuralNetwork.Reset();
             ShowMessage("Neural network has been resetted.");
         }
+        private void ShowNNResult_Button_Click(object sender, EventArgs e)
+        {
+            ShowMessage(GetNNResult());
+        }
         #endregion
+
     }
 }
