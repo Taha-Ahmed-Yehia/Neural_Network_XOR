@@ -17,6 +17,7 @@ namespace Neural_Network_XOR
         public Main()
         {
             InitializeComponent();
+            Result_TextBox.ScrollBars = ScrollBars.Vertical;
             Result_TextBox.ReadOnly = true;
 
             Train_ProgressBar.Hide();
@@ -150,12 +151,11 @@ namespace Neural_Network_XOR
         private void Load_Button_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new OpenFileDialog();
+            // Set intial directory to default path
+            string initialDirectory = AppDomain.CurrentDomain.BaseDirectory + "Neural Network Models";
+            ofd.InitialDirectory = initialDirectory;
             if (ofd.ShowDialog() == DialogResult.OK)
             {
-
-                // Set intial directory to default path
-                string initialDirectory = AppDomain.CurrentDomain.BaseDirectory.Replace('/', '\\') + "Neural Network Models\\";
-                ofd.InitialDirectory = initialDirectory;
                 if (ofd.OpenFile() != null)
                 {
                     try
