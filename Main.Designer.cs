@@ -93,6 +93,7 @@ namespace Neural_Network_XOR
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.Controls.Add(this.ShowNNResult_Button);
             this.Controls.Add(this.Result_TextBox);
             this.Controls.Add(this.Save_Button);
