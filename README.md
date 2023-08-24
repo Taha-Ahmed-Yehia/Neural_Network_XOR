@@ -1,5 +1,8 @@
 # Neural_Network_XOR
- A simple winform that train neural network to solve XOR problem and can save and load model.
+ - A simple winform that train neural network to solve XOR problem and it can train and output results and it can save, load models.
+ - Here is a video preview of application at work:
+  https://github.com/Taha-Ahmed-Yehia/Neural_Network_XOR/assets/109998670/14f3d870-e007-4c4d-a76b-8fcac5d2c547
+
 # Download Application
 - Visit Google Drive Link: https://drive.google.com/drive/folders/1l1Bvi-LMU5K1xssv5TnBuEu680UuT9NU?usp=sharing
 - If you signed in gooogle drive then click on file name and chose download.
